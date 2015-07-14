@@ -63,12 +63,22 @@ public class MainClass extends Resource implements Runnable{
 			if(Thread.currentThread().getName().equals("thread1"))
 				{
 					
-						System.out.println(" Price of Pens "+this.pen());
+						try {
+							System.out.println(" Price of Pens "+this.pen());
+						} catch (InterruptedException e) {
+							// TODO Auto-generated catch block
+							e.printStackTrace();
+						}
 					
 				}
 			else{
 					
-						System.out.println(" Price of Pencil "+this.pencil());
+						try {
+							System.out.println(" Price of Pencil "+this.pencil());
+						} catch (InterruptedException e) {
+							// TODO Auto-generated catch block
+							e.printStackTrace();
+						}
 					
 				}	
 		
