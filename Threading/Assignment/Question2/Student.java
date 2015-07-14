@@ -50,20 +50,16 @@ public class Student extends Thread {
 		long id2;
 		String threadName;
 		String objectName;
-		BufferedReader br = new BufferedReader (new InputStreamReader(System.in));
 		
 		for(int i=0; i<50; i++)
 		{
 			objectName = "object"+i;
 			Student objectName1 = new Student();
 			objectName1.setName(objectName);
-			System.out.println("Enter Name Of Student");
-			name = br.readLine();
+			name = "Manan";
 			objectName1.setNames(name);
-			System.out.println("Enter Id of Student");
-			id = Long.parseLong(br.readLine());
+			id = 24;
 			objectName1.setId(id);
-			
 			threadName = "thread"+i;
 			Thread threadName1 = new Thread(objectName1);
 			threadName1.setName(threadName);
@@ -75,13 +71,10 @@ public class Student extends Thread {
 			objectName = "object"+i;
 			Student objectName2 = new Student();
 			objectName2.setName(objectName);
-			System.out.println("Enter Name Of Student");
-			name2 = br.readLine();
+			name2 = "Ram Lal";
 			objectName2.setNames(name2);
-			System.out.println("Enter Id of Student");
-			id2 = Long.parseLong(br.readLine());
+			id2 = 90;
 			objectName2.setId(id2);
-			
 			threadName = "thread"+i;
 			Thread threadName2 = new Thread(objectName2);
 			threadName2.setName(threadName);
@@ -97,7 +90,6 @@ public class Student extends Thread {
 		FileWriter file = new FileWriter("StudentRecord.txt",true);
 		file.write(" \n Name of Student : "+this.getNames());
 		file.write("  \n Id of Student : "+this.getId());
-		System.out.println("Write Successful");
 		file.close();
 		} catch(IOException exception) {
 			System.out.println(exception);
