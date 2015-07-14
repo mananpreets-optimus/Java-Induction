@@ -52,7 +52,7 @@ public class Student extends Thread {
 		String objectName;
 		BufferedReader br = new BufferedReader (new InputStreamReader(System.in));
 		
-		for(int i=0; i<10; i++)
+		for(int i=0; i<50; i++)
 		{
 			objectName = "object"+i;
 			Student objectName1 = new Student();
@@ -69,7 +69,7 @@ public class Student extends Thread {
 			threadName1.setName(threadName);
 			threadName1.start();
 		}
-		for(int i=10; i<20; i++)
+		for(int i=50; i<100; i++)
 		{
 			
 			objectName = "object"+i;
