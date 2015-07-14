@@ -1,0 +1,1 @@
+2. Write a program to launch 100's thread that will write into a file concurrently, also, cover all methods of thread life-cycle in this program or in separate program.

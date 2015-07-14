@@ -1,0 +1,1 @@
+1. Create two threads which are calling two synchronized methods of another class (E.g. Resource Class).Create functionality of those two methods of Resource class such that the resource needed by first thread is being used/held by second thread and vice-versa, so that both threads will go into deadlock situation.
