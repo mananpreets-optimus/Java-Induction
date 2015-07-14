@@ -1,0 +1,6 @@
+ $ cat .gitignore
+    # exclude everything except directory CoreJava/src
+    /*
+    !/CoreJava
+    /CoreJava/*
+    !/CoreJava/src
