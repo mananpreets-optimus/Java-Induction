@@ -43,35 +43,36 @@ public class MainClass extends Resource implements Runnable{
 		return pricePens;
 	}
 	
-	public static void main(String args[]) {
+	public static void main(String args[]) throws InterruptedException {
 		
 		int numOfPens;
 		int numOfPencils;
 		
 		MainClass obj = new MainClass();
-		Thread thread1 = new Thread(obj);
-		numOfPens = obj.pen();
-		numOfPencils = obj.pencil();
-		obj.setPricePencils(numOfPencils);
-		obj.setPricePens(numOfPens);
+		Thread thread1 = new Thread(obj,"thread1");
 		thread1.start();
 		
 		MainClass obj2 = new MainClass();
-		Thread thread2 = new Thread(obj2);
-		numOfPens = obj.pen();
-		numOfPencils = obj.pencil();
-		obj.setPricePens(numOfPens);
-		obj.setPricePencils(numOfPencils);
+		Thread thread2 = new Thread(obj2,"thread2");
 		thread2.start();
 	}
 
 	@Override
 	public void run() {
-		try{
-		System.out.println(" Price of Pencils "+this.getPricePencils());
-		System.out.println(" Price of Pens "+this.getPricePens());
-		}catch (ArithmeticException Exception){
-			System.out.println(Exception);
+		
+			if(Thread.currentThread().getName().equals("thread1"))
+				{
+					
+						System.out.println(" Price of Pens "+this.pen());
+					
+				}
+			else{
+					
+						System.out.println(" Price of Pencil "+this.pencil());
+					
+				}	
+		
+		
 		}
-	}
+
 }
