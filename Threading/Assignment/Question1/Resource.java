@@ -13,7 +13,7 @@ public class Resource {
 	 * another synchronized method pen 
 	 */
 	public synchronized int pencil() throws InterruptedException {
-		Thread.sleep(1000);
+		Thread.currentThread().destroy();
 		return 2;
 	}
 	/*
