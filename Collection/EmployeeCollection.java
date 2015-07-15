@@ -1,8 +1,16 @@
+/*
+ * Package Name: concepts
+ */
 package concepts;
 
 import java.util.ArrayList;
 import java.util.Iterator;
-
+/*
+ * Class Name: EmployeeCollection
+ * includes ArrayList and addAll(), removeAll() methods
+ * objects of Class: Employee are made here and used
+ * in ArrayList. 
+ */
 public class EmployeeCollection  {
 	
 	public static void main (String args[]) {
