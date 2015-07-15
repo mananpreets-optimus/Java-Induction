@@ -1,5 +1,12 @@
+/*
+ * Package Name: concepts
+ */
 package concepts;
-
+/*
+ * Class Name: Employee
+ * includes two variables id and name
+ * and Constructor for initialization.
+ */
 public class Employee {
 	
 	int id;
