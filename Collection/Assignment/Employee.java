@@ -11,7 +11,7 @@ import java.util.HashMap;
 import java.util.Map;
 /*
  * Class Name: Employee
- * involves setHash
+ * involves setHash.
  */
 public class Employee {
 	
