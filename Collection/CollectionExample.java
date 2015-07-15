@@ -1,3 +1,6 @@
+/*
+ * Package Name: concepts
+ */
 package concepts;
 
 import java.util.HashMap;
@@ -7,7 +10,10 @@ import java.util.Map;
 import java.util.PriorityQueue;
 import java.util.TreeSet;
 import java.util.Vector;
-
+/*
+ * Class Name: CollectionExample
+ * includes implementations LinkedList, TreeSet, PriorityQueue, Vector, HashMap
+ */
 public class CollectionExample {
 
 	public static void main (String args[]) {
