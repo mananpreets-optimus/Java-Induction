@@ -11,9 +11,13 @@ public class StringTokenizerExample {
 	
 	public static void main(String args[]) {
 		
-		StringTokenizer string = new StringTokenizer("\"A\",\"B\",\"C\",\"D\"");
-		while(string.hasMoreElements()) {
-		System.out.println("Tokens : " +string.nextToken("\",\""));
+		String string = "\"A\",\"B\",\"C\",\"D\"";
+		string = string.replace("\",\"", "\\\\");
+		StringTokenizer string1 = new StringTokenizer(string);
+		
+		while(string1.hasMoreElements()) {
+		System.out.println("Tokens : " +string1.nextToken("\\\\"));
 		}
 	}
 }
+                                                                                                                                         
