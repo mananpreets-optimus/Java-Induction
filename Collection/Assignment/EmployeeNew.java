@@ -77,7 +77,7 @@ public class EmployeeNew {
 		}
 		System.out.println("Employees whose department is not Sales are as follows");
 		for(EmployeeNew emp : list) {
-			if (emp.dep.toString() != "Sales") {
+			if (!emp.dep.toString().equals("Sales")) {
 				System.out.println("Employee Name : "+map.get(emp.id));
 			}
 		}
