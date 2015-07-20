@@ -1,0 +1,3 @@
+Manifest-Version: 1.0
+Class-Path: C:\Program Files\sqljdbc4.jar
+
