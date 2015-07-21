@@ -1,42 +1,26 @@
 package com.hibernate;
 
+import javax.imageio.spi.ServiceRegistry;
+
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
+import org.hibernate.cfg.AnnotationConfiguration;
 import org.hibernate.cfg.Configuration;
-
+/*
+ * Class Name: StudentStoreData
+ */
 public class StudentStoreData {
 	public static void main(String args[]) {
-		/*
-		 * Configuration object is created 
-		 */
-		Configuration cfg = new Configuration();
-		cfg.configure("student.cfg.xml");
-		/*
-		 * 
-		 */
-		SessionFactory factory = cfg.buildSessionFactory();
-		/*
-		 * 
-		 */
-		Session session = factory.openSession();
-		/*
-		 * 
-		 */
-		Transaction transaction = session.beginTransaction();
+		
 		Student student = new Student();
-		student.setAge(12);
 		student.setId(1);
 		student.setName("Manan");
-		/*
-		 * persisting the object
-		 */
-		session.persist(student);
-		/*
-		 * transaction is committed
-		 */
-		transaction.commit();
-		session.close();
+		SessionFactory sessionFactory= new AnnotationConfiguration().configure().buildSessionFactory();
+		Session session = 	sessionFactory.openSession();
+		session.beginTransaction();
+		session.save(student);
+		session.getTransaction().commit();
 		System.out.println("HELLO");
 		
 	}

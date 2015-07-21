@@ -1,13 +1,21 @@
 package com.hibernate;
 
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.Table;
+/*
+ * Class Name: Student
+ * involves id of student and name of student
+ * and getter and setter methods for id and name
+ */
+@Entity
+@Table(name= "Student")  
 public class Student {
 	
+	@Id
 	private int id;
 	private String name;
-	private int age;
-	public void setAge(int age) {
-		this.age = age;
-	}
+
 	public int getId() {
 		return id;
 	}
@@ -19,9 +27,6 @@ public class Student {
 	}
 	public void setName(String name) {
 		this.name = name;
-	}
-	public int getAge() {
-		return age;
 	}
 
 	
