@@ -14,6 +14,9 @@ import javax.servlet.http.HttpServletResponse;
 
 /**
  * Servlet implementation class AddToCart
+ * In this servlet class a particular product is shown and 
+ * user can enter value corresponding to product in text field
+ * and can add product to cart. 
  */
 @WebServlet("/AddToCart")
 public class AddToCart extends HttpServlet {
@@ -31,8 +34,6 @@ public class AddToCart extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		//Cookie cooki = new Cookie("Product",)
 		
 		String productType = request.getParameter("ProductType");
 		String productName = request.getParameter("ProductName");
@@ -46,21 +47,26 @@ public class AddToCart extends HttpServlet {
 		Statement stmt = null;
 		ResultSet rs = null;
 		try{
+			/*
+			 * 	Connection to database
+			 */
 			con = Authentication.DatabaseConnectivity();
 			stmt = con.createStatement();
 			String sql="SELECT * FROM "+productType+" WHERE Name = \'"+productName+"\'";
 			rs = stmt.executeQuery(sql);
+			
 			while(rs.next()) {
+				
 				out.println("<form action =\"ToCart\" method=\"GET\">");
 				out.println("Quantity : "+rs.getInt("Quantity"));
 				out.println("Price :"+rs.getInt("Price"));
 				out.println("<input type=\"hidden\" name=\"TotalQuantity\" value=\" "+rs.getInt("Quantity")+" \">");
-				out.println("<input type=\"hidden\" name=\"ProductType\" value=\" "+productType+" \">");
-				out.println("<input type=\"hidden\" name=\"ProductName\" value=\" "+productName+" \">");
+				out.println("<input type=\"hidden\" name=\"ProductType\" value=\""+productType+"\">");
+				out.println("<input type=\"hidden\" name=\"ProductName\" value=\""+productName+"\">");
 				out.println("Enter Quantity: "+"<input type=\"text\" name=\"quantity\">");
 				out.println("<input type=\"Submit\" value=\"AddToCart\"/></form>");	
 			}
-			//out.println("\n <a href='ToCart?ProductName="+productName+"&ProductType="+productType+"' style='text-decoration:none'>ADD TO CART : "+rs.getString("Name")+"</a><br>")
+			
 			out.println("</body></html>");
 		} catch(Exception e) {
 			e.printStackTrace();

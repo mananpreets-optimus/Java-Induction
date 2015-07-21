@@ -9,7 +9,7 @@
 <form action ="Authentication" method="GET">
 UserName : <input type="text" name="name" />
 <br>
-Password : <input type="text" name="password">
+Password : <input type="password" name="password">
 <input type="Submit" value="Submit" />
 </form>
 <a href="SignUp.jsp" >

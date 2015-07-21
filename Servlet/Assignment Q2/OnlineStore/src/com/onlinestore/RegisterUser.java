@@ -14,6 +14,7 @@ import javax.servlet.http.HttpServletResponse;
 
 /**
  * Servlet implementation class RegisterUser
+ * Involves registration of new user to the database.
  */
 @WebServlet("/RegisterUser")
 public class RegisterUser extends HttpServlet {
@@ -38,6 +39,10 @@ public class RegisterUser extends HttpServlet {
 		Statement stmt = null;
 		ResultSet rs = null;
 		try{
+			/*
+			 * Connection to database 
+			 * for insertion of details of new user to database.
+			 */
 		con = Authentication.DatabaseConnectivity();
 		stmt = con.createStatement();
 		String sql = "INSERT INTO Login VALUES ('"+userName+"','"+password+"')";

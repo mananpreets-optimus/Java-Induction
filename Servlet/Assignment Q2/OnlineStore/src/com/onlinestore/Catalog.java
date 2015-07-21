@@ -18,6 +18,7 @@ import javax.servlet.http.HttpSession;
 
 /**
  * Servlet implementation class Catalog
+ * In this servlet all products types are displayed.
  */
 @WebServlet("/Catalog")
 public class Catalog extends HttpServlet {
@@ -36,13 +37,15 @@ public class Catalog extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		//HttpSession session = request.getSession();
 		String docType = "<!doctype html public \"-//w3c//dtd html 4.0 " + "transitional//en\">\n";
 		PrintWriter out = response.getWriter();
 		out.println(docType+"<html><body>");
 		out.println("<form action =\"Products\" method=\"GET\">");
 		try {
 			Connection con;
+			/*
+			 * Connection to database 
+			 */
 			con = Authentication.DatabaseConnectivity();
 			Statement stmt = con.createStatement();
 			ResultSet rs = stmt.executeQuery("SELECT * FROM Products");
@@ -51,7 +54,6 @@ public class Catalog extends HttpServlet {
 				String name = rs.getString("name");
 				out.println("\n <a href='Products?Category="+name+"' style='text-decoration:none'> "+name+"</a><br>");
 			}
-			//out.println("<input type=\"Submit\" value=\"Submit\" />");
 			out.println("</body></html>");
 		} catch (ClassNotFoundException | SQLException e) {
 			// TODO Auto-generated catch block

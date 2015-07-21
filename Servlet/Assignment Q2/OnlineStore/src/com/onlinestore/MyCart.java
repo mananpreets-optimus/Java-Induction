@@ -2,6 +2,9 @@ package com.onlinestore;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Map.Entry;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -32,10 +35,18 @@ public class MyCart extends HttpServlet {
 		// TODO Auto-generated method stub
 		HttpSession session = request.getSession(false);
 		PrintWriter out = response.getWriter();
-		out.println(session.getAttribute("Pens"));
-		out.println(session.getAttribute("Mobile"));
-		out.println(session.getAttribute("Pant"));
-		out.println(session.getAttribute("Shirt"));
+		Authentication a = new Authentication();
+		Map<String,Integer> HashMapValues = new HashMap<String,Integer> ();
+		HashMapValues = (Map<String, Integer>) session.getAttribute("Quantity");
+		a.HashMapQuant = (Map<String, Integer>) session.getAttribute("Quantity");
+		/*Map<String,Integer> HashMapValues = new HashMap<String,Integer> ();
+		HashMapValues = (Map<String, Integer>) session.getAttribute("Quantity");*/
+		for(Entry<String, Integer> hashNames: a.HashMapQuant.entrySet()) {
+			out.println(".................\n");
+			out.println("Quantity : "+hashNames.getValue()+" ProductName : "+hashNames.getKey());
+		}
+	
+	
 	}
 
 	/**

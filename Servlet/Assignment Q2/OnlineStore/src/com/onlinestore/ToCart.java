@@ -5,6 +5,9 @@ import java.io.PrintWriter;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.Statement;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Map.Entry;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -37,29 +40,43 @@ public class ToCart extends HttpServlet {
 		String docType = "<!doctype html public \"-//w3c//dtd html 4.0 " + "transitional//en\">\n";
 		out.println(docType+"<html><body>");
 		String quantityEntered = request.getParameter("quantity");
-		String productName = request.getParameter("ProductType");
-		String productType = request.getParameter("ProductName");
+		String productType = request.getParameter("ProductType");
+		String productName = request.getParameter("ProductName");
 		String totalQuantity = request.getParameter("TotalQuantity");
-		out.println(quantityEntered+" "+productName+" "+productType); 
+		out.println(quantityEntered+" . "+productName+" . "+productType); 
 		Connection con = null;
 		Statement stmt = null;
 		ResultSet rs = null;
 		try {
-			/*if(Integer.parseInt(quantityEntered) > Integer.parseInt(totalQuantity)){
-				out.println("QUANTITY ENTERED MORE THAN AVAILABLE");
-				out.println("\n <a href='Catalog' style='text-decoration:none'>GO BACK </a><br>");
-				out.println("</body></html>");
-			}*/
-			
+			/*
+			 * Connection to database
+			 */
 			con = Authentication.DatabaseConnectivity();
 			stmt = con.createStatement();
-			String sql="update Pant set Quantity = Quantity-1 WHERE Name='JOHN'";
-			
-			String sql1="update "+productType+" set Quantity = Quantity-1 WHERE Name = \'"+productName+"\'"; 
+			String sql="update Pant set Quantity = Quantity+2 WHERE Name='JOHN'";
+			System.out.println(productName);
+			String sql1="update "+productType+" set Quantity = Quantity-"+quantityEntered+" WHERE Name='"+productName+"'"; 
+			System.out.println(sql1);
 			stmt.executeUpdate(sql1);
 			HttpSession session = request.getSession(false);
 			if(session !=null){
-				session.setAttribute(productType, quantityEntered);
+				Authentication a = new Authentication();
+				a.HashMapQuant = (Map<String, Integer>) session.getAttribute("Quantity");
+				a.HashMapQuant.put(productName, Integer.parseInt(quantityEntered));
+				for(Entry<String, Integer> hashNames: a.HashMapQuant.entrySet()) {
+				
+					out.print(hashNames.getKey());
+					out.print(productType);
+					if((hashNames.getKey()).equals(productType)) {
+						
+						a.HashMapQuant.put(productType,a.HashMapQuant.get(productType)+ Integer.parseInt(quantityEntered));
+						session.setAttribute("Quantity", a.HashMapQuant);
+						out.println(Integer.parseInt("SUCCESSFULLY ADDED TO CART: QUANTITY = "+quantityEntered));
+						
+					}
+					
+				}
+			
 			}
 			
 		}catch(Exception e){

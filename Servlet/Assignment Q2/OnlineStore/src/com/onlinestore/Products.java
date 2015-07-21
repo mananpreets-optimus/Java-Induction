@@ -17,6 +17,8 @@ import jdk.nashorn.internal.ir.RuntimeNode.Request;
 
 /**
  * Servlet implementation class Products
+ * In this servlet all products with description of 
+ * a particular type is displayed.
  */
 @WebServlet("/Products")
 public class Products extends HttpServlet {
@@ -42,19 +44,19 @@ public class Products extends HttpServlet {
 		ResultSet rs = null;
 		System.out.println(productType);
 		try {
-			con = Authentication.DatabaseConnectivity();
-			stmt = con.createStatement();
+				/*
+				 * Connection to database
+				 */
+				con = Authentication.DatabaseConnectivity();
+				stmt = con.createStatement();
 	    		rs = stmt.executeQuery("SELECT * FROM "+productType);
 	    		String docType = "<!doctype html public \"-//w3c//dtd html 4.0 " + "transitional//en\">\n";
 	    		out.println(docType+"<html><body>");
 	    		out.println("<form action =\"MyCart\" method=\"GET\">");
 	    		out.println("<center><input type=\"Submit\" value=\"MyCart\" /></center></form>");
+	    		
 	    		while(rs.next()) {
-	    			//out.println("<form action =\"AddToCart\" method=\"GET\">");
-	    		/*	UserName : <input type="text" name="name" />
-	    			<br>
-	    			Password : <input type="text" name="password">*/
-	    			//<input type="Submit" value="Submit" />
+	    			
 	    			out.println(" NAME : ");
 	    			out.println(rs.getString("Name"));
 	    			out.println(" QUANTITY : ");
@@ -62,10 +64,9 @@ public class Products extends HttpServlet {
 	    			out.println(" PRICE : ");
 	    			out.println(rs.getString("Price"));
 	    			out.println("........");
-	    			//out.println("Enter Quantity: "+"<input type=\"text\" name=\"quantity\">");
-	    			out.println("\n <a href='AddToCart?ProductName="+rs.getString("Name")+"&ProductType="+productType+"' style='text-decoration:none'>ADD TO CART : "+rs.getString("Name")+"</a><br>");
-	    			//out.println("<input type=\"Submit\" value=\"AddToCart\" name=\"\"/></form>");	    		
-	    			}	
+	    			out.println("\n <a href='AddToCart?ProductName="+rs.getString("Name")+"&ProductType="+productType+"' style='text-decoration:none'>ADD TO CART : "+rs.getString("Name")+"</a><br>");	
+	    			
+	    		}	
 	    		out.println("</body></html>");
 		} catch (ClassNotFoundException | SQLException e) {
 			// TODO Auto-generated catch block
