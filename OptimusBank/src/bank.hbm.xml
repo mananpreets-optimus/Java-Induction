@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC 
+ "-//Hibernate/Hibernate Mapping DTD//EN"
+ "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+  <hibernate-mapping>
+  <class name="com.optimus.bank.Customer" table="Customer">
+  	<id name='id'  type="int" column="id">
+  	<generator class="native" />
+  	</id>
+  	  <property name="customerName" type="string" column="customerName"/>
+  	   <property name="gender" type="string" column="gender"/>
+  	    <property name="dateOfBirth" type="string" column="dateOfBirth"/>
+  	     <property name="address" type="string" column="address"/>
+  	      <property name="city" type="string" column="city"/>
+  	       <property name="state" type="string" column="state"/>
+  	        <property name="pin" type="string" column="pin"/>
+  	         <property name="telephoneNo" type="string" column="telephoneNo"/>
+  	          <property name="fax" type="string" column="email"/>
+<bag name="account" cascade="all">
+   <key column="id"></key>
+   <one-to-many class="com.optimus.bank.Account" />
+  </bag>
+   <!--  
+  <bag name="bankTransaction" cascade="all">
+   <key column="id"></key>
+   <one-to-many class="com.optimus.bank.BankTransaction" />
+  </bag>  -->
+ </class>
+  
+       
+ <class name="com.optimus.bank.Account" table="Account">
+  	<id name='accountNo' type="string" column="accountNo">
+  	<generator class="native" />
+  	</id>
+  	 <property name="typeOfAccount" type="string" column="typeOfAccount"/>
+  	  <property name="balance" type="double" column="balance"/>
+  	  <!--  <bag name="bankTransaction" cascade="all">
+   <key column="accountNo"></key>
+   <one-to-many class="com.optimus.bank.BankTransaction" />
+  </bag> --> 
+  </class>
+  <!--  
+  
+  <class name="com.optimus.bank.BankTransactions" table="BankTransactions">
+  <id name='id' type="string" column="id">
+  <generator class="native"/>
+  </id>
+   <property name="amount" type="double" column="amount"/>
+      <property name="typeOfTransation" type="char" column="typeOfTransation"/>
+         <property name="dateOfTransaction" type="string" column="dateOfTransaction"/>
+  </class> -->
+  </hibernate-mapping>
