@@ -22,10 +22,10 @@
  <%= object.getInt("id")%><br> EmployeeName:<%= object.getString("empName")%><br>
 
  <br>
- <%i++; 
+ <%  i++;
     }%>
  <br>
- <a href="welcome.jsp">Home</a>
+ <a href="Menu.jsp">Home</a>
 
 </body>
 </html>

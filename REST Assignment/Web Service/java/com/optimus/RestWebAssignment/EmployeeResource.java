@@ -17,6 +17,7 @@ import org.json.JSONObject;
 import org.json.simple.JSONValue;
 /*
  * Class Name: EmployeeResource
+ * includes methods getEmployeeDetails, isAdmin, addEmployee, updateEmployee
  */
 @Path("/optimus/v1")
 public class EmployeeResource {
@@ -27,12 +28,19 @@ public class EmployeeResource {
 	 */
 	@GET
 	@Path("/employeeDetails")
-	@Produces(MediaType.APPLICATION_XML)
-	public List<Employee> getEmployeeDetails(){
+	@Produces(MediaType.APPLICATION_JSON)
+	public String getEmployeeDetails(){
 		
-		return emp.getEmployeeDetails();
+		List<Employee> employee = emp.getEmployeeDetails();
+		ListToString ls = new ListToString();
+		String jsonText = ls.getJson(employee);
+		return jsonText;
 		
 	}
+	/*
+	 * Method Name: isAdmin
+	 * admin authentication.
+	 */
 	@POST
 	@Path("/isAdmin")
 	@Consumes(MediaType.APPLICATION_JSON)

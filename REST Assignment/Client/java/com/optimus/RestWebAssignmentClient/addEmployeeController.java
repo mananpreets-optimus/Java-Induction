@@ -17,6 +17,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.log4j.Logger;
+import org.apache.log4j.PropertyConfigurator;
 import org.json.JSONException;
 import org.json.JSONObject;
 import org.json.simple.JSONValue;
@@ -35,24 +37,31 @@ public class addEmployeeController extends HttpServlet {
         // TODO Auto-generated constructor stub
     }
     /*
+     * Method Name: sendRequestToService
+     * parameter jsonText string
      * Connection with the  web service
      */
     public void sendRequestToService(String jsonText) throws IOException{
     	String string="";
 		BufferedReader br = null;
+		Logger logger = Logger.getLogger("addEmployeeController");
+		PropertyConfigurator.configure(this.getClass().getClassLoader().getResource("log4j.properties"));
 		/*
 		 * URL of web service is set
 		 */
 		String url ="http://localhost:8080/RestWebAssignment/webapi/optimus/v1/addEmployee";
 		URL obj = new URL(url);
+		logger.info("Connection opened");
 		HttpURLConnection con = (HttpURLConnection) obj.openConnection();
 		con.setRequestMethod("POST");
 		con.setRequestProperty("Content-Type", "application/json");
+		logger.info("Content type set to application/json");
 		String urlParameters;
 		con.setDoOutput(true);
 		DataOutputStream wr = new DataOutputStream(con.getOutputStream());
 		wr.writeBytes(jsonText);
 		wr.flush();
+		logger.info("Request to service sent.");
 		int responseCode = con.getResponseCode();
 		System.out.println("Response Code: "+ responseCode);
 		/*
@@ -64,6 +73,7 @@ public class addEmployeeController extends HttpServlet {
 		while((input = rd.readLine())!= null){
 			response.append(input);
 		}
+		logger.info("Response from service recieved");
 		rd.close();
 		System.out.println(response.toString());
     }
@@ -72,6 +82,7 @@ public class addEmployeeController extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		//Request parameters are recieved
 		String empName = request.getParameter("empName");
 		String gender = request.getParameter("gender");
 		String address = request.getParameter("address");
@@ -79,7 +90,7 @@ public class addEmployeeController extends HttpServlet {
 		String state = request.getParameter("state");
 		String telephone = request.getParameter("telephone");
 		
-		  //JSONObject a = new JSONObject();
+		  //New JSONObject created.
 		  JSONObject obj=new JSONObject();
 		  try {
 			obj.put("empName",empName);
@@ -95,15 +106,17 @@ public class addEmployeeController extends HttpServlet {
 		  String jsonText = JSONValue.toJSONString(obj);
 		  System.out.println(jsonText);
 		  sendRequestToService(jsonText);
-		  //response.sendRedirect(arg0);
-		 // return jsonText;
+		  /*
+		   * redirected to Menu.jsp 
+		   */
+		  response.sendRedirect("Menu.jsp");
 	}
 
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
+		
 	}
 
 }

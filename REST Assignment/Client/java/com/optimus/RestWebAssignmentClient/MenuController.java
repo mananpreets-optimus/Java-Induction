@@ -18,6 +18,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.ws.rs.core.Response;
 
+import org.apache.log4j.Logger;
+import org.apache.log4j.PropertyConfigurator;
 import org.json.JSONArray;
 import org.json.JSONException;
 
@@ -41,17 +43,25 @@ public class MenuController extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		//Request parameters are recieved
 		String type = request.getParameter("menu");
+		/*
+		 * Logger and configuration
+		 */
+		Logger logger = Logger.getLogger("MenuController");
+		PropertyConfigurator.configure(this.getClass().getClassLoader().getResource("log4j.properties"));
 		if(type.equals("getEmployeeDetails")){
-			
+			logger.info("Inside getEmployeeDetails");
 				try{
 					/*
 					 * HttpURLConnection is opened.
 					 */
 					URL url = new URL("http://localhost:8080/RestWebAssignment/webapi/optimus/v1/employeeDetails");
 					HttpURLConnection con = (HttpURLConnection) url.openConnection();
+					logger.info("HttpURLConnection is opened.");
 					con.setRequestMethod("GET");
-					con.setRequestProperty("content-type", "application/XML");
+					con.setRequestProperty("content-type", "application/json");
+					logger.info("Content type set to application/json");
 					/*
 					 * If response code is not equal to 200 then it displays Failed along with response code.  
 					 */
@@ -60,40 +70,47 @@ public class MenuController extends HttpServlet {
 					}
 					BufferedReader br = new BufferedReader(new InputStreamReader(con.getInputStream()));
 					String output;
-					StringBuffer string = null;
+					StringBuffer string = new StringBuffer();
 					while((output = br.readLine()) != null){
+						System.out.println("56565656");
 						System.out.println(output);
 						string.append(output);
 					}
+					System.out.println("stringhhh"+string);
+					logger.info("Response Recieved.");
 					request.setAttribute("json", (string.toString()));
 					  JSONArray jsonarray=new JSONArray(string.toString());
 					  if(jsonarray.length()==0)
 					  {
 					   PrintWriter out = response.getWriter();
 					   out.println("Try again");
+					   //Redirect to Menu.jsp
 					   RequestDispatcher requestDispatcher = request.getRequestDispatcher("/Menu.jsp");
 					   requestDispatcher.forward(request, response);
 					  }
 					  else{
+						  //Redirect to displayEmployee.jsp
 					  RequestDispatcher requestDispatcher = request.getRequestDispatcher("/displayEmployee.jsp");
 					  requestDispatcher.forward(request, response);
 					  }
 					
-					//response.sendRedirect("displayEmployee");
+		
 					con.disconnect();
 				}
 				catch(MalformedURLException e){
 					
 				} catch (JSONException e) {
-					// TODO Auto-generated catch block
+				
 					e.printStackTrace();
 				}
 				
 		}
 		if(type.equals("addEmployee")){
+			//Redirect to checkAdmin.jsp
 			response.sendRedirect("checkAdmin.jsp");
 		}
 		if(type.equals("updateEmployee")){
+			//Redirect to updateEmployee.jsp
 			response.sendRedirect("updateEmployee.jsp");
 		}
 	}

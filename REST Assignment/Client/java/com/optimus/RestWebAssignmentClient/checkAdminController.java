@@ -1,3 +1,6 @@
+/*
+ * Package Name: com.optimus.RestWebAssignmentClient
+ */
 package com.optimus.RestWebAssignmentClient;
 
 import java.io.BufferedReader;
@@ -12,6 +15,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.log4j.Logger;
+import org.apache.log4j.PropertyConfigurator;
 import org.json.JSONException;
 import org.json.JSONObject;
 import org.json.simple.JSONValue;
@@ -29,22 +34,32 @@ public class checkAdminController extends HttpServlet {
         super();
         // TODO Auto-generated constructor stub
     }
+    /*
+     * Method Name: sendCheckToService
+     * parameter jsonText string
+     * Connection to web service
+     */
     public String sendCheckToService(String jsonText) throws IOException{
     	String string="";
 		BufferedReader br = null;
+		Logger logger = Logger.getLogger("updateEmployeeController");
+		PropertyConfigurator.configure(this.getClass().getClassLoader().getResource("log4j.properties"));
 		/*
 		 * URL of web service is set
 		 */
 		String url ="http://localhost:8080/RestWebAssignment/webapi/optimus/v1/isAdmin";
 		URL obj = new URL(url);
+		logger.info("Connection opened");
 		HttpURLConnection con = (HttpURLConnection) obj.openConnection();
 		con.setRequestMethod("POST");
 		con.setRequestProperty("Content-Type", "application/json");
+		logger.info("Content type set to application/json");
 		String urlParameters;
 		con.setDoOutput(true);
 		DataOutputStream wr = new DataOutputStream(con.getOutputStream());
 		wr.writeBytes(jsonText);
 		wr.flush();
+		logger.info("Request to service sent.");
 		int responseCode = con.getResponseCode();
 		System.out.println("Response Code: "+ responseCode);
 		/*
@@ -56,6 +71,7 @@ public class checkAdminController extends HttpServlet {
 		while((input = rd.readLine())!= null){
 			response.append(input);
 		}
+		logger.info("Response from service recieved");
 		rd.close();
 		System.out.println(response.toString());
 		return response.toString();
@@ -64,8 +80,10 @@ public class checkAdminController extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		//Request parameters are recieved
 		String userName = request.getParameter("userName");
 		String password = request.getParameter("password");
+		 //New JSONObject created.
 		 JSONObject obj=new JSONObject();
 		  try {
 			obj.put("userName",userName);
@@ -77,16 +95,17 @@ public class checkAdminController extends HttpServlet {
 		  String jsonText = JSONValue.toJSONString(obj);
 		  System.out.println(jsonText);
 		  String responseText = sendCheckToService(jsonText);
-		 // if(jsonText){
 		  try {
 			JSONObject objResponse = new JSONObject(responseText);
 			String message = objResponse.getString("message");
 			if(message.equals("success")){
-				System.out.println("hhhhhhh");
+				/*
+				 * Redirected to addEmployee.jsp
+				 */
 				response.sendRedirect("addEmployee.jsp");
 			}
 		} catch (JSONException e) {
-			// TODO Auto-generated catch block
+
 			e.printStackTrace();
 		}
 		  
@@ -97,7 +116,7 @@ public class checkAdminController extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
+	
 	}
 
 }
