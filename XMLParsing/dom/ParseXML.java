@@ -22,9 +22,11 @@ public class ParseXML {
 			 * New File is created.
 			 */
 			 File inputFile = new File("input.txt");
+			//Create a DocumentBuilder
 	         DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
 	         DocumentBuilder builder = factory.newDocumentBuilder();
 	         Document doc = builder.parse(inputFile);
+	       //Root Element
 	        System.out.println(""+doc.getDocumentElement().getNodeName());
 	        NodeList nodeList = doc.getElementsByTagName("student");
 	        
