@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC 
+ "-//Hibernate/Hibernate Mapping DTD//EN"
+ "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+  <hibernate-mapping>
+  <class name="com.addressbook.User" table="User_Table">
+  	<id name='userId'  type="int" column="userId">
+  	<generator class="native" />
+  	</id>
+  	  <property name="firstName" type="string" column="firstName"/>
+  	   <property name="lastName" type="string" column="lastName"/>
+  	    <property name="address" type="string" column="address"/>
+  	      <property name="email" type="string" column="email"/>
+  	       <property name="password" type="string" column="password"/>
+
+ </class>
+  
+       
+ <class name="com.addressbook.Admin" table="Admin_Table">
+  	<id name='adminId' type="int" column="adminId">
+  	<generator class="native" />
+  	</id>
+  	 <property name="adminName" type="string" column="adminName"/>
+  	  <property name="password" type="string" column="password"/>
+  	
+    
+  </class>
+ 
+  </hibernate-mapping>
