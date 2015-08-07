@@ -34,7 +34,7 @@ public class DisplayUsers extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
+		
 		UserDAO user = new UserDAO();
 		PrintWriter out = response.getWriter();
 		List<User> users = user.lisAllUsers();
@@ -49,22 +49,9 @@ public class DisplayUsers extends HttpServlet {
 			
 			writer = PdfWriter.getInstance(document, new FileOutputStream("E:\\JavaWorkspace\\Display.pdf"));
 			 document.open();
-			/*  String docType =
-				      "<!doctype html public \"-//w3c//dtd html 4.0 " +
-				      "transitional//en\">\n";
-				      out.println(docType +
-				                "<html>\n" +
-				                "<head></head>\n" );*/
 				                
 			 for(Iterator iterator = users.iterator();iterator.hasNext();){
 					User userDetails = (User) iterator.next();
-					
-			/*		out.println("\nUser:");
-					out.println("\nFIRST_NAME: "+userDetails.getFirstName());
-					out.println("\nLAST_NAME: "+userDetails.getLastName());
-					out.println("\nAddress: "+userDetails.getAddress());
-					out.println("\nEmail: "+userDetails.getEmail());
-					out.println(userDetails.getEmail());*/
 					document.add(new Paragraph("\nFIRST_NAME: "+userDetails.getFirstName()));
 					document.add(new Paragraph("LAST_NAME: "+userDetails.getLastName()));
 					document.add(new Paragraph("Address: "+userDetails.getAddress()));
@@ -88,15 +75,12 @@ public class DisplayUsers extends HttpServlet {
 					fileWriter.close();
 			 }
 			 document.close();
-		        writer.close();
-			/* out.println("</body></html>");*/
+		     writer.close();
 			 RequestDispatcher rd=request.getRequestDispatcher("displayUsers.jsp");  
-			//servlet2 is the url-pattern of the second servlet  
-			  request.setAttribute("user", users);
-			rd.forward(request, response);
+			 request.setAttribute("user", users);
+			 rd.forward(request, response);
 		        
 		} catch (DocumentException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
        

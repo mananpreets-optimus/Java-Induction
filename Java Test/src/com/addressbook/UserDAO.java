@@ -12,16 +12,13 @@ import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 import org.hibernate.cfg.Configuration;
 
-
-
-
-
-
-
-
 public class UserDAO {
 	public int isAdmin(String adminName, String password){
 		int check = 0;
+		/*
+		 * SessionFactory object is configured 
+		 * and session is opened.
+		 */
 		SessionFactory sessionFactory = new Configuration().configure("hibernate.cfg.xml").buildSessionFactory();
 		Session session = sessionFactory.openSession();
 		Transaction trans = null;
@@ -64,6 +61,10 @@ public class UserDAO {
 	
 	public int isUser(String email, String password){
 		int check = 0;
+		/*
+		 * SessionFactory object is configured 
+		 * and session is opened.
+		 */
 		SessionFactory sessionFactory = new Configuration().configure("hibernate.cfg.xml").buildSessionFactory();
 		Session session = sessionFactory.openSession();
 		Transaction trans = null;
@@ -103,8 +104,15 @@ public class UserDAO {
 		return check;
 	}
 	public List lisAllUsers(){
+		/*
+		 * SessionFactory object is configured 
+		 * and session is opened.
+		 */
 		SessionFactory sessionFactory = new Configuration().configure("hibernate.cfg.xml").buildSessionFactory();
 		Session session = sessionFactory.openSession();
+		/*
+		 * Transaction begin.
+		 */
 		Transaction trans = null;
 		List users = null;
 		try {
@@ -131,11 +139,18 @@ public class UserDAO {
 		
 	}
 	public List searchAllUsers(String lastName){
+		/*
+		 * SessionFactory object is configured 
+		 * and session is opened.
+		 */
 		SessionFactory sessionFactory = new Configuration().configure("hibernate.cfg.xml").buildSessionFactory();
 		Session session = sessionFactory.openSession();
 		Transaction trans = null;
 		List users = null;
 		try {
+			/*
+			 * Transaction begin.
+			 */
 			trans = session.beginTransaction();
 			Query query  = session.createQuery("FROM User  WHERE lastName like :lastName");
 			query.setParameter("lastName", "%"+lastName+"%");
@@ -198,13 +213,23 @@ public class UserDAO {
 		
 	}
 	public void deleteUser(Integer userId) {
+		/*
+		 * SessionFactory object is configured 
+		 * and session is opened.
+		 */
 		SessionFactory sessionFactory = new Configuration().configure("hibernate.cfg.xml").buildSessionFactory();
 		Session session = sessionFactory.openSession();
 		Transaction trans = null;
 		try{
+			/*
+			 * Transaction begin.
+			 */
 			trans = session.beginTransaction();
 			User user = (User) session.get(User.class, userId);
 			session.delete(user);
+			/*
+			 * Transaction commit.
+			 */
 			trans.commit();
 		} catch(HibernateException hibernateException) {
 			if(trans != null){

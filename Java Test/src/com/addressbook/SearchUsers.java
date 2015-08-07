@@ -17,15 +17,8 @@ import javax.servlet.http.HttpServletResponse;
  */
 @WebServlet("/SearchUsers")
 public class SearchUsers extends HttpServlet {
-	private static final long serialVersionUID = 1L;
+private static final long serialVersionUID = 1L;
        
-    /**
-     * @see HttpServlet#HttpServlet()
-     */
-    public SearchUsers() {
-        super();
-        // TODO Auto-generated constructor stub
-    }
 
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
@@ -36,17 +29,9 @@ public class SearchUsers extends HttpServlet {
 		String lastName = request.getParameter("lastName");
 		List<User> users = user.searchAllUsers(lastName);
 		request.setAttribute("user", users);
-		 RequestDispatcher rd=request.getRequestDispatcher("/searchDisplayUsers.jsp");  
-			
-			
-			rd.forward(request, response);
+		RequestDispatcher rd=request.getRequestDispatcher("/searchDisplayUsers.jsp"); 
+		rd.forward(request, response);
 	}
 
-	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
-	 */
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-	}
 
 }
